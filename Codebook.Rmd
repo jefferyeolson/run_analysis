@@ -1,0 +1,91 @@
+---
+title: "Codebook"
+author: "Jeff Olson"
+date: "1/20/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+##UCI Human Activity Recognition Dataset
+Here is the description from the online repository of these data:
+UCI Machine Learning Data Respository
+Human Activity Recognition Using Smartphones Data Set
+(http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones#)
+
+##Details of Original Dataset and Study
+
+Details of the original data are found in many locations. One of the best is 
+
+https://github.com/anas337/Human-Activity-Recognition-Using-Smartphones.github.io 
+
+Two datasets were created from this original dataset: run_merged_data and run_tidy_data. These were created using the following R packages, in addition to Base R: data.table, dplyr, and tidyr.
+
+##run_merged_data
+This new data set was a merger into one dataset of the training and test data and the labels for all subjects, activities, and measurements. Subjects were only referred to by number. The only statistical measurements that were retained in this new dataset were the mean and standard deviation for the subjects, activities, and original measurements. 
+
+##run_tidy_data
+This new dataset is a reconfiguration of run_merged_data described above into a “tidy” dataset, with one observation for each subject, activity, and measurement, with the mean of means calculated for the observation. This was done in R, using the following code:
+
+run_melt <- melt(data = as.data.table(run_merged_means),
+
+
+     id.vars = c("subject", "activity"),
+
+
+     variable.name = "measurement",
+
+
+     value.name = "mean")
+run_tidy_data <- group_by(run_melt, subject, activity, measurement) %>%
+
+  summarize(mean_of_means = mean(mean))
+
+There were 30 subjects, 6 activities, and 33 types of measurements of each. 
+
+##Subjects: 
+1 through 30
+
+##Activities: 
+1 walking
+2 walking_upstairs
+3 walking_downstairs
+4 sitting
+5 standing
+6 laying
+
+##Measurements:
+tBodyAcc.mean...X
+tBodyAcc.mean...Y
+tBodyAcc.mean...Z
+tGravityAcc.mean...X
+tGravityAcc.mean...Y
+tGravityAcc.mean...Z
+tBodyAccJerk.mean...X
+tBodyAccJerk.mean...Y
+tBodyAccJerk.mean...Z
+tBodyGyro.mean...X
+tBodyGyro.mean...Y
+tBodyGyro.mean...Z
+tBodyGyroJerk.mean...X
+tBodyGyroJerk.mean...Y
+tBodyGyroJerk.mean...Z     
+tBodyAccMag.mean..
+tGravityAccMag.mean..
+tBodyAccJerkMag.mean..     
+tBodyGyroMag.mean..
+tBodyGyroJerkMag.mean..
+fBodyAcc.mean...X
+fBodyAcc.mean...Y
+fBodyAcc.mean...Z
+fBodyAccJerk.mean...X
+fBodyAccJerk.mean...Y
+fBodyAccJerk.mean...Z
+fBodyGyro.mean...X
+fBodyGyro.mean...Y
+fBodyGyro.mean...Z
+fBodyAccMag.mean..
+fBodyBodyAccJerkMag.mean..
+fBodyBodyGyroMag.mean..
+fBodyBodyGyroJerkMag.mean..
