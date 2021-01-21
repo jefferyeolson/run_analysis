@@ -3,11 +3,7 @@ title: "Codebook"
 author: "Jeff Olson"
 date: "1/20/2021"
 output: html_document
----
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 ##UCI Human Activity Recognition Dataset
 Here is the description from the online repository of these data:
 UCI Machine Learning Data Respository
